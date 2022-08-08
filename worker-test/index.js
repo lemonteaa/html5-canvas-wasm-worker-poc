@@ -1,7 +1,7 @@
 import wasmWorker from 'wasm-worker';
 
 // supposing an "add.wasm" module that exports a single function "add"
-wasmWorker('add.wasm')
+wasmWorker('pkg/hello_wasm_bg.wasm')
   .then(module => {
     return module.exports.add(1, 2);
   })
