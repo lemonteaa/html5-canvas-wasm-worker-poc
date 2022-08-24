@@ -1,9 +1,15 @@
 import wasmWorker from 'wasm-worker';
 
 // supposing an "add.wasm" module that exports a single function "add"
-wasmWorker('wasm/hello_wasm_bg.wasm')
+wasmWorker('http://dev-machine:35668/wasm/hello_wasm_bg.wasm', {
+  getImportObject: () => ({
+    imports: {
+    },
+  })
+})
   .then(module => {
     return module.exports.add(1, 2);
+    //console.log(module.exports.add(1, 2));
   })
   .then(sum => {
     console.log('1 + 2 = ' + sum);
@@ -15,7 +21,7 @@ wasmWorker('wasm/hello_wasm_bg.wasm')
 
 // you can also run js functions inside the worker
 // to access importObject for example
-wasmWorker('add.wasm')
+/*wasmWorker('add.wasm')
   .then(module => {
     return module.run(({
       // module,
@@ -30,5 +36,5 @@ wasmWorker('add.wasm')
   })
   .then(result => {
     console.log(result);
-  });
+  });*/
 
