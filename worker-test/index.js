@@ -44,10 +44,12 @@ img.onload = () => {
         var mem = new Uint8Array(instance.exports.memory.buffer, ptr, 5);
         mem.set(new Uint8Array(params[0]));
         var res = instance.exports.array_sum(ptr, 5);
+
+        var new_imagedata = instance.exports.recolor(params[1]);
   
         //return importObject.imports.hello;
   
-        return params[1];
+        return new_imagedata;
       }, [[1, 2, 3, 4, 5], image_data]))
     .then(sum => {
       //console.log('Array sum is = ' + sum);

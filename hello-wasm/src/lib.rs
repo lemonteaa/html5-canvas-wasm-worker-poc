@@ -1,6 +1,9 @@
 mod utils;
 
 use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+
+extern crate photon_rs;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
 // allocator.
@@ -52,4 +55,18 @@ pub unsafe fn array_sum(ptr: *mut u8, len: usize) -> u8 {
 #[wasm_bindgen]
 pub fn add(a: i32, b: i32) -> i32 {
     return a + b;
+}
+
+//#[wasm_bindgen]
+//extern "C" {
+//    pub type SomeJsType;
+//}
+//web_sys::ImageData
+//photon_rs::PhotonImage
+
+#[wasm_bindgen]
+pub fn recolor(img : web_sys::ImageData) -> web_sys::ImageData {
+    let mut p = photon_rs::PhotonImage::from(img);
+    photon_rs::filters::filter(&mut p, "rosetint");
+    return photon_rs::to_image_data(p);
 }
